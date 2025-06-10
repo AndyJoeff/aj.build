@@ -1,6 +1,7 @@
 const phrases = [
   "Connect and Convert.",
   "Tell Your Brand’s Story.",
+  "Turn Visitors into Clients.",
   "Work as Hard as You Do."
 ];
 
