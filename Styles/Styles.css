@@ -2734,7 +2734,7 @@ blockquote {
 }
 
 .start-a-project {
-    background-color: var(--yellow);
+    background-color: #FFD700;
     color: var(--black);
     border-radius: 50px;
     padding: 16px 34px;
