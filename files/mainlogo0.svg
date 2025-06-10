@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 28" height="28" width="27"> 
+  <!-- Animated building blocks -->
+  <rect fill="#FFD700" height="12" width="12" y="0" x="0">
+    <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite" begin="0s"></animate>
+  </rect>
+  
+  <rect x="15" y="8" width="12" height="12" fill="#FFD700" opacity="0.7">
+    <animate attributeName="opacity" values="0.2;0.9;0.2" dur="2s" repeatCount="indefinite" begin="0.5s"></animate>
+  </rect>
+  
+  <rect x="0" y="16" width="12" height="12" fill="#FFD700" opacity="0.4">
+    <animate attributeName="opacity" values="0.1;0.6;0.1" dur="2s" repeatCount="indefinite" begin="1s"></animate>
+  </rect>
+</svg>
