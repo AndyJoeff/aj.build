@@ -5321,7 +5321,7 @@ blockquote {
         align-items: flex-start;
     }
 
-    .menu-line, menu-line0,
+    .menu-line, .menu-line0,
     .menu-line-two {
        background-color: white;
         height: 3px;
