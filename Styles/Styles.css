@@ -5311,21 +5311,22 @@ blockquote {
     }
 
     .menu-button-block {
-        grid-column-gap: 16px;
-        grid-row-gap: 16px;
         flex-direction: column;
-        justify-content: center;
-        width: 42px;
-        height: 42px;
-        padding: 4px;
+        justify-content: space-between;
+        width: 32px;
+        height: 19px;
+        /* padding: 4px; */
         display: flex;
         overflow: hidden;
+        align-items: flex-start;
     }
 
-    .menu-line,
+    .menu-line, menu-line0,
     .menu-line-two {
-        background-color: var(--gray);
+       background-color: white;
         height: 3px;
+        height: 1px;
+        width: 24px;
         padding-bottom: 0;
         padding-right: 0;
     }
