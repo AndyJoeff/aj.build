@@ -45,3 +45,20 @@ const observer = new IntersectionObserver((entries) => {
 
 // Start observing the section
 observer.observe(laptopContainer);
+
+document.addEventListener('DOMContentLoaded', function () {
+    const button = document.querySelector('.menu-button-block');
+    const target = document.querySelector('.menu-line0');
+
+    button.addEventListener('click', function () {
+      if (target.style.opacity === '0') {
+        target.style.opacity = '1';
+        // target.style.visibility = 'visible'; // optional
+        // target.style.pointerEvents = 'auto';
+      } else {
+        target.style.opacity = '0';
+        // target.style.visibility = 'hidden'; // optional
+        // target.style.pointerEvents = 'none';
+      }
+    });
+  });
