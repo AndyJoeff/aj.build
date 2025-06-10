@@ -6316,7 +6316,8 @@ blockquote {
   white-space: nowrap;
   overflow: hidden;
   animation: blink-caret 0.75s step-end infinite;
-  color: var(--yellow) !important;
+  color: var(--yellow);
+  color: #FFD700;
 }
 
 @keyframes blink-caret {
