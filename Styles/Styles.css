@@ -6315,7 +6315,7 @@ blockquote {
   font-size: 62px;
   font-weight: 700;
   border-right: 2px solid #FFD700;
-  white-space: nowrap;
+  /*white-space: nowrap;*/
   overflow: hidden;
   animation: blink-caret 0.75s step-end infinite;
   color: var(--yellow);
