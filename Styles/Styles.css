@@ -5362,8 +5362,8 @@ blockquote {
         -webkit-justify-content: center;
         -ms-flex-pack: center;
         justify-content: center;
-        margin-left: 20px;
-        margin-right: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
     .hero-section-laptop {
