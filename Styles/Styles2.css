@@ -616,9 +616,9 @@ h2 {
         -webkit-align-items: flex-start;
         -ms-flex-align: start;
         align-items: flex-start;
-        -webkit-transform: none;
+       /* -webkit-transform: none;
         -ms-transform: none;
-        transform: none;
+        transform: none;*/
         text-align: left;
     }
     .white-text-no-margin, .black-text-no-margin {
