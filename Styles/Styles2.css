@@ -313,8 +313,12 @@ h2 {
         width: 100%;
         max-width: 450px;
     }
+    .project-card-name {
+        font-size: 22px;
+    }
+}
 
-    
+
 
 .front-and-backend-section-holder {
   display: -webkit-box;
@@ -581,13 +585,4 @@ h2 {
     margin-right: auto !important;
     margin-left: auto !important;
     padding: 2em !important;
-}
-
-
-
-    
-
-    .project-card-name {
-        font-size: 22px;
-    }
 }
