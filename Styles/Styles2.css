@@ -538,6 +538,8 @@ h2 {
   transform-style: preserve-3d;
   letter-spacing: 0.7px;
     font-family: Source Code Pro;
+    line-height: 1.4;
+    letter-spacing: 0.7px;
 }
 
 .card-paragraph.white-text {
