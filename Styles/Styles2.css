@@ -237,6 +237,11 @@ h2 {
     }
 }
 
+.sub-head{
+    color: var(--color--paragraph-color);
+    margin-top: 16px;
+}
+
 @media screen and (max-width: 991px) {
     h2 {
         font-size: 36px;
@@ -584,5 +589,42 @@ h2 {
     max-width: 1170px !important;
     margin-right: auto !important;
     margin-left: auto !important;
-    padding: 2em !important;
+    padding: 2em;
+}
+
+@media screen and (max-width: 479px) {
+    .skill-container {
+        padding: 1em;
+    }
+
+    .front-and-backend-section {
+        padding-top: 106px;
+        padding-bottom: 106px;
+        grid-row-gap: 80px;
+    }
+        .front-and-backend-card-holder {
+        margin: 0px;
+    }
+        .front-card-holder {
+        padding: 20px;
+    }
+    .card-text-holder {
+        padding: 0px;
+        -webkit-box-align: start;
+        -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+        -webkit-transform: none;
+        -ms-transform: none;
+        transform: none;
+        text-align: left;
+    }
+    .white-text-no-margin, .black-text-no-margin {
+        font-size: 28px;
+    }
+        .card-paragraph {
+        max-width: 100%;
+        padding-left: 5px;
+        font-size: 15px;
+    }
 }
