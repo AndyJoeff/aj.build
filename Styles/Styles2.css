@@ -34,8 +34,8 @@ h2 {
 
 .container-default {
     max-width: 960px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .subtitle-wrapper {
@@ -596,7 +596,7 @@ h2 {
 
 @media screen and (max-width: 479px) {
     .skill-container {
-        padding: 1em;
+        padding: 1.12em;
     }
 
     .front-and-backend-section {
