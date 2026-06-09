@@ -4,10 +4,15 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>aj.build - A web dev portfolio</title>
+    <title>aj.build/ - Web Developer for Startups</title>
     <meta
         content="#"
         name="description" />
+     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans (Modern UI) & Caveat (Handwritten) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link href="Styles/Styles2.css" rel="stylesheet" type="text/css" />
 
@@ -21,6 +26,28 @@
                 ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
         }(window, document);
     </script>
+        <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        handwritten: ['"Caveat"', 'cursive'],
+                    },
+                    colors: {
+                        brand: {
+                            yellow: '#FFD000',
+                            yellowHover: '#E5BB00',
+                            darkBg: '#0C0C0D',
+                            cardBg: '#131315',
+                            border: '#232326',
+                            textMuted: '#9CA3AF'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link
         href="files/mainlogo0.svg"
         rel="shortcut icon" type="image/x-icon" />
@@ -32,80 +59,208 @@
     <div class="grain"></div>
     <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease"
         role="banner" class="navbar w-nav">
-        <div class="nav-container">
-            <svg width="129" height="30" viewBox="0 0 129 30" xmlns="http://www.w3.org/2000/svg">
-  <text lengthAdjust="spacingAndGlyphs" textLength="20" fill="#FFD700" font-weight="bold" font-size="24" font-family="Arial, sans-serif" y="22" x="0">aj</text>
-  <text x="18" y="22" font-family="Arial, sans-serif" font-size="24" font-weight="300" fill="#ffffff" textLength="6" lengthAdjust="spacingAndGlyphs">.</text>
-  <text x="23" y="22" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ffffff" textLength="47" lengthAdjust="spacingAndGlyphs">build</text>
-  
-  <!-- Animated building blocks -->
-  <rect x="72" y="0" width="12" height="12" fill="#FFD700">
-    <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite" begin="0s"></animate>
-  </rect>
-  
-  <rect opacity="0.7" fill="#FFD700" height="12" width="12" y="8" x="87">
-    <animate attributeName="opacity" values="0.2;0.9;0.2" dur="2s" repeatCount="indefinite" begin="0.5s"></animate>
-  </rect>
-  
-  <rect opacity="0.4" fill="#FFD700" height="12" width="12" y="16" x="72">
-    <animate attributeName="opacity" values="0.1;0.6;0.1" dur="2s" repeatCount="indefinite" begin="1s"></animate>
-  </rect>
-</svg>
+ <header class="sticky top-0 z-40 bg-brand-darkBg/80 backdrop-blur-md border-b border-brand-border/40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center space-x-1 group">
+                <span class="text-xl 2xl:text-2xl font-bold tracking-tight text-white group-hover:text-brand-yellow transition-colors duration-200">aj.build/</span>
+                <span class="text-xl 2xl:text-2xl font-bold text-brand-yellow group-hover:translate-x-0.5 transition-transform duration-200">&gt;</span>
+            </a>
 
-            <div class="nav-menu-block">
-                <nav role="navigation" class="nav-menu w-nav-menu">
-                    <div class="nav-link-block">
-                        <!-- <a href="/" aria-current="page" class="nav-link w-nav-link w--current">Home</a>-->
-                        <a href="/about" class="nav-link w-nav-link">Service</a>
-                        <a href="/project" class="nav-link w-nav-link">Project</a>
-                        <a href="/blog" class="nav-link w-nav-link">Blog</a>
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+                <a href="#work" class="hover:text-white transition-colors duration-200">Work</a>
+                <a href="#about" class="hover:text-white transition-colors duration-200">About</a>
+                <a href="#services" class="hover:text-white transition-colors duration-200">Services</a>
+                <a href="#process" class="hover:text-white transition-colors duration-200">Process</a>
+                <a href="#testimonials" class="hover:text-white transition-colors duration-200">Testimonials</a>
+            </nav>
+
+            <!-- CTA / Contact Trigger -->
+            <div class="hidden md:flex items-center">
+                <button onclick="openContactModal()" class="px-6 py-2.5 rounded-full border border-brand-border hover:border-brand-yellow text-white text-sm font-medium flex items-center space-x-2 transition-all duration-300 group hover:shadow-[0_0_15px_rgba(255,208,0,0.15)]">
+                    <span>Let's Talk</span>
+                    <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200 text-brand-yellow" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-400 hover:text-white focus:outline-none" aria-label="Toggle menu">
+                <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+                <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-brand-border bg-brand-darkBg/95 backdrop-blur-lg px-6 py-8 space-y-6 transition-all duration-300">
+            <nav class="flex flex-col space-y-4">
+                <a href="#work" onclick="toggleMobileMenu()" class="text-lg text-gray-300 hover:text-brand-yellow transition-colors">Work</a>
+                <a href="#about" onclick="toggleMobileMenu()" class="text-lg text-gray-300 hover:text-brand-yellow transition-colors">About</a>
+                <a href="#services" onclick="toggleMobileMenu()" class="text-lg text-gray-300 hover:text-brand-yellow transition-colors">Services</a>
+                <a href="#process" onclick="toggleMobileMenu()" class="text-lg text-gray-300 hover:text-brand-yellow transition-colors">Process</a>
+                <a href="#testimonials" onclick="toggleMobileMenu()" class="text-lg text-gray-300 hover:text-brand-yellow transition-colors">Testimonials</a>
+            </nav>
+            <button onclick="toggleMobileMenu(); openContactModal()" class="w-full py-3 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-black text-center font-semibold flex items-center justify-center space-x-2 transition-all">
+                <span>Let's Talk</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[calc(100vh-80px)] flex items-center justify-center px-6 md:px-28 py-12 md:py-12 overflow-hidden">
+        <div class="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 items-center relative z-10">
+            
+            <!-- Left Hero Content -->
+            <div class="lg:col-span-7 flex flex-col items-start space-y-6 md:space-y-8">
+                
+                <!-- Pill Badge -->
+                <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-brand-cardBg border border-brand-border text-[11px] md:text-[0.6rem] font-semibold tracking-wider text-gray-300 uppercase">
+                    <span class="w-1 h-1 rounded-full bg-brand-yellow animate-pulse"></span>
+                    <span>Web Developer For Startups</span>
+                </div>
+
+                <!-- Main Heading -->
+                <h1 class="leading-[1.2] text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-extrabold tracking-tight text-white" style="
+    margin-top: 16px;
+    line-height: 1.2;
+">
+                    Building Websites <br class="hidden sm:inline">
+                    That <span class="text-brand-yellow relative inline-block">Build Trust</span>
+                </h1>
+
+                <!-- Supporting Text -->
+                <p class="text-base sm:text-sm md:text-base text-gray-400 max-w-xl leading-relaxed" style="
+    margin-top: 25px;
+    max-width: 460px;
+">
+                    Helping startups and founders present their products clearly, earn credibility, and convert more visitors into customers.
+                </p>
+
+                <!-- Call to Actions -->
+                <div class="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2" style="
+    margin-top: 25px;
+    font-size: 14px;
+">
+                    <!-- Primary Button -->
+                    <a href="#work" class="px-6 py-3 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-black font-semibold text-center flex items-center justify-center space-x-2 transition-all duration-300 shadow-[0_4px_20px_rgba(255,208,0,0.15)] hover:shadow-[0_4px_30px_rgba(255,208,0,0.3)] transform hover:-translate-y-0.5">
+                        <span>View My Work</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"></path>
+                        </svg>
+                    </a>
+                    
+                    <!-- Secondary Button -->
+                    <button onclick="openContactModal()" class="px-6 py-3 rounded-full border border-transparent hover:border-brand-border text-gray-300 hover:text-white font-medium text-center flex items-center justify-center space-x-2.5 transition-all group">
+                        <span>Let's Discuss Your Project</span>
+                        <div class="p-1 rounded-full border border-gray-600 group-hover:border-brand-yellow transition-colors duration-200">
+                            <svg class="w-3.5 h-3.5 text-gray-400 group-hover:text-brand-yellow transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"></path>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Trust / Features Badges -->
+                <div class="grid grid-cols-3 w-full max-w-lg pt-4">
+                    <!-- Badge 1 -->
+                    <div class="flex flex-col sm:flex-row items-center text-center sm:text-left space-y-2 sm:space-y-0 sm:space-x-3 pr-2 sm:pr-6 border-r border-brand-border/40">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-brand-cardBg border border-brand-border flex items-center justify-center flex-shrink-0">
+                            <!-- Lightning Icon -->
+                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-yellow" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M11.5 1.5L2.25 12.75h9L9.75 22.5l9.25-11.25h-9L11.5 1.5z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-[9px] sm:text-[11px] md:text-xs text-gray-400 uppercase tracking-wider leading-none sm:leading-normal">Conversion</p>
+                            <p class="text-[10px] sm:text-xs md:text-sm font-bold text-white mt-0.5 sm:mt-0">Focused</p>
+                        </div>
                     </div>
-                </nav>
-                <a href="/contact-us" class="contact-now-button w-button">Contact</a>
-                <div data-w-id="1b5f1e29-7e64-9681-e763-6cfc7868aa5c" class="menu-button w-nav-button">
-                    <div class="menu-button-block">
-                        <div class="menu-line"></div>
-                        <div class="menu-line0" style="width: 15px;"></div>
-                        <div class="menu-line-two"></div>
+                    <!-- Badge 2 -->
+                    <div class="flex flex-col sm:flex-row items-center text-center sm:text-left space-y-2 sm:space-y-0 sm:space-x-3 px-2 sm:px-6 border-r border-brand-border/40">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-brand-cardBg border border-brand-border flex items-center justify-center flex-shrink-0">
+                            <!-- Code Icon -->
+                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-yellow" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-[9px] sm:text-[11px] md:text-xs text-gray-400 uppercase tracking-wider leading-none sm:leading-normal">Clean</p>
+                            <p class="text-[10px] sm:text-xs md:text-sm font-bold text-white mt-0.5 sm:mt-0">Code</p>
+                        </div>
+                    </div>
+                    <!-- Badge 3 -->
+                    <div class="flex flex-col sm:flex-row items-center text-center sm:text-left space-y-2 sm:space-y-0 sm:space-x-3 pl-2 sm:pl-6">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-brand-cardBg border border-brand-border flex items-center justify-center flex-shrink-0">
+                            <!-- Rocket Icon -->
+                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-yellow" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.89 2.1a1 1 0 0 0-1.78 0L9.39 5.58a1 1 0 0 1-.3.39L6.1 8.21a1 1 0 0 0-.27.87l.38 3.09a1 1 0 0 1-.09.52L4.08 17a3 3 0 0 0-.41 1.15l-.6 3.65a1 1 0 0 0 1.15 1.15l3.65-.6a3 3 0 0 0 1.15-.41l4.22-2.04c.15-.08.33-.11.5-.09l3.09.38a1 1 0 0 0 .87-.27l2.24-2.99a1 1 0 0 1 .39-.3l3.48-1.72a1 1 0 0 0 0-1.78l-3.48-1.72a1 1 0 0 1-.39-.3L17.5 4.8a1 1 0 0 0-.87-.27l-3.09.38a1 1 0 0 1-.5-.09L12.89 2.1z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-[9px] sm:text-[11px] md:text-xs text-gray-400 uppercase tracking-wider leading-none sm:leading-normal">Startup</p>
+                            <p class="text-[10px] sm:text-xs md:text-sm font-bold text-white mt-0.5 sm:mt-0">Minded</p>
+                        </div>
                     </div>
                 </div>
+
             </div>
-        </div>
-    </div>
-    <section class="hero-section">
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-content-block">
-                    <div class="hero-text-content">
-                        <h1 data-w-id="1fc7ba7c-1eb7-6547-a411-5d3bea9708b9"
-                            style="-webkit-transform:translate3d(0, 60%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 60%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 60%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 60%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0"
-                            class="heading-01 home-page lead-in">
-                            Building Websites That<br><span id="typewriter-text"></span>
-                        </h1>
-                        <div data-w-id="079d0641-932a-3267-7e36-0dd371805c2b"
-                            style="-webkit-transform:translate3d(0, 100%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 100%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 100%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 100%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0"
-                            class="hero-text">Web Developer & Content Strategist</div>
-                        <div data-w-id="7ff58597-a058-d7e6-d9eb-33ea59fb2128"
-                            style="-webkit-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0"
-                            class="hero-button-block">
-                            <a href="/contact-us" class="start-a-project w-button">Start a project</a>
-                            <a data-w-id="72be4498-db11-2f2d-5229-3334d9f101e3" href="/project"
-                                class="view-portfolio-link w-inline-block">
-                                <div>View portfolio</div>
-                                <div class="icon-block">
-                                    <img src="https://cdn.prod.website-files.com/65b815fb8b11393078dd199d/65b92bd544b2b339d572ddb0_view%20portfolio%20icon.svg"
-                                        loading="lazy" alt="" class="protfolio-icon" />
-                                    <img src="https://cdn.prod.website-files.com/65b815fb8b11393078dd199d/65b92bd544b2b339d572ddb0_view%20portfolio%20icon.svg"
-                                        loading="lazy" alt="" class="protfolio-icon-two" />
-                                </div>
-                            </a>
+
+            <!-- Right Hero Image/Illustration (Andy portrait with radial yellow background & handwritten note) -->
+            <div class="lg:col-span-5 flex justify-center lg:justify-end relative mt-8 lg:mt-0">
+                <div class="relative w-full max-w-md lg:max-w-lg">
+                    
+                    <!-- Subtle ambient glowing orb behind the image -->
+                    <div class="absolute"></div>
+                    
+                    <!-- Andy Portrait Container (No border, no background, bottom faded) -->
+                    <div class="relative overflow-visible flex justify-center items-end aspect-auto">
+                        <!-- Professional portrait image -->
+                        <img src="files/0fjf6hos.png" alt="Andy - Web Developer" class="object-cover w-full h-auto max-h-[600px] select-none filter grayscale brightness-[0.85] contrast-[1.05] hover:grayscale-0 hover:brightness-100 transition-all duration-700 ease-in-out z-10">
+                        <!-- Blurry mask gradient at the bottom to blend straight cropped edges with body background -->
+                        <div class="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-brand-darkBg via-brand-darkBg/90 to-transparent pointer-events-none z-20"></div>
+                    </div>
+                    <!-- Floating Happy Clients Capsule overlapping the left of the image -->
+                    <div class="absolute -left-3 sm:-left-10 bottom-16 sm:bottom-20 z-30 bg-brand-cardBg/95 backdrop-blur-md border border-brand-border/90 py-2 sm:py-2.5 px-3.5 sm:px-4.5 rounded-full shadow-[0_15px_30px_rgba(0,0,0,0.5)] flex items-center space-x-3 select-none">
+                        <div class="flex -space-x-2.5 overflow-hidden">
+                            <img class="inline-block h-6 w-6 sm:h-7 sm:w-7 rounded-full ring-2 ring-brand-darkBg object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100" alt="Client Face" onerror="this.src='https://placehold.co/100x100/232326/FFD000?text=C1'">
+                            <img class="inline-block h-6 w-6 sm:h-7 sm:w-7 rounded-full ring-2 ring-brand-darkBg object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" alt="Client Face" onerror="this.src='https://placehold.co/100x100/232326/FFD000?text=C2'">
+                            <img class="inline-block h-6 w-6 sm:h-7 sm:w-7 rounded-full ring-2 ring-brand-darkBg object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" alt="Client Face" onerror="this.src='https://placehold.co/100x100/232326/FFD000?text=C3'">
+                        </div>
+                        <div class="flex items-center space-x-1.5">
+                            <svg class="w-3.5 h-3.5 text-brand-yellow fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                            <span class="text-[11px] sm:text-xs text-white font-semibold">10+ Happy Clients</span>
                         </div>
                     </div>
 
+                    <!-- Handwritten Note ("Hi, I'm Andy" + custom SVG arrow) -->
+                    <div class="absolute -right-2 sm:-right-6 top-16 md:top-24 z-30 transform rotate-6 select-none animate-bounce duration-[4000ms]">
+                        <p class="font-handwritten text-brand-yellow text-3xl sm:text-4xl tracking-wider leading-none drop-shadow-md">
+                            Hi, I'm Andy
+                        </p>
+                        <!-- Perfect Custom SVG Arrow curved to point toward Andy -->
+                        <svg class="w-16 h-12 text-brand-yellow mt-2 ml-2" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M85,20 C70,60 40,65 20,45" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" stroke-dasharray="3 3" />
+                            <path d="M35,38 L20,45 L28,60" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                        </svg>
+                    </div>
+
                 </div>
             </div>
+
         </div>
     </section>
+    
     <div data-wf-page="6319f69c5ef0f338d0db6df4" data-w-id="9174bee0-a0e2-ccaa-e43a-daff36892ee5"
         style="opacity: 1; transform: translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
         class="hero-section-laptop-container">
