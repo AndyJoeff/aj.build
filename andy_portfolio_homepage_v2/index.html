@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andy Joe — Frontend Developer & UI Designer</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            acid: '#FFD000',
+            paperBg: '#F2F3F0',
+            paperPanel: '#EAEDE8',
+            panel: '#141619',
+          },
+          boxShadow: {
+            soft: '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+            darksoft: '0 4px 24px -2px rgba(0, 0, 0, 0.35)',
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            handwritten: ['Caveat', 'cursive']
+          },
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500..700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+
+  <style>
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 60;
+      opacity: .018;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    }
+
+    .dark body::before {
+      opacity: .028;
+    }
+
+    .portrait-mask {
+      mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
+    }
+
+    .glass-light {
+      background-color: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+    }
+
+    .dark .glass-light {
+      background-color: rgba(20, 22, 25, 0.8);
+      backdrop-filter: blur(12px);
+    }
+  </style>
+
+  <!-- Prevent Theme Flicker -->
+  <script>
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+</head>
+
+<body
+  class="bg-paperBg text-[#17191C] font-sans antialiased transition-colors duration-200 dark:bg-[#0C0E10] dark:text-white">
+
+  <!-- Navigation Bar -->
+  <header
+    class="sticky top-0 z-50 border-b border-black/[0.06] bg-paperBg/80 backdrop-blur-md dark:border-white/[0.07] dark:bg-[#0C0E10]/80">
+    <div class="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-5 sm:px-7 lg:px-8">
+
+      <!-- Brand Logo -->
+      <a href="#" class="text-[18px] font-extrabold tracking-[-0.04em] text-[#17191C] dark:text-white">
+        aj.build/<span class="text-[#9B7B00] dark:text-acid">&gt;</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden items-center gap-9 text-[13px] font-medium text-[#6F747B] md:flex dark:text-[#B7BBC1]">
+        <a href="#work" class="transition hover:text-black dark:hover:text-white">Work</a>
+        <a href="#approach" class="transition hover:text-black dark:hover:text-white">Approach</a>
+        <a href="#about" class="transition hover:text-black dark:hover:text-white">About</a>
+      </nav>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-3">
+        <a href="mailto:hello@example.com"
+          class="hidden rounded-lg border border-black/15 px-4 py-2 text-[12px] font-semibold transition hover:border-black/40 sm:inline-flex dark:border-white/20 dark:hover:border-white/45">
+          Let's Talk
+        </a>
+
+        <!-- Dark / Light Theme Toggle Button -->
+        <button id="themeToggle" type="button" aria-label="Toggle theme"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-black/10 transition hover:border-black/30 dark:border-white/10 dark:hover:border-white/30">
+          <!-- Sun Icon (visible in Dark Mode) -->
+          <svg id="sunIcon" class="hidden h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <path
+              d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
+            </path>
+          </svg>
+          <!-- Moon Icon (visible in Light Mode) -->
+          <svg id="moonIcon" class="hidden h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- Mobile Menu Trigger Button -->
+        <button id="menuButton" type="button" aria-label="Open navigation"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-black/10 md:hidden dark:border-white/10">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden border-t border-black/[0.06] px-5 py-5 md:hidden dark:border-white/[0.07]">
+      <nav class="mx-auto flex max-w-[1180px] flex-col gap-4 text-sm font-semibold">
+        <a href="#work" class="mobile-link transition hover:text-black dark:hover:text-white">Work</a>
+        <a href="#approach" class="mobile-link transition hover:text-black dark:hover:text-white">Approach</a>
+        <a href="#about" class="mobile-link transition hover:text-black dark:hover:text-white">About</a>
+        <a href="mailto:hello@example.com" class="mobile-link text-[#9B7B00] dark:text-acid">Let's Talk →</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="py-16 sm:py-20 lg:py-24">
+    <div class="mx-auto grid max-w-[1180px] grid-cols-1 items-center gap-12 px-5 sm:px-7 lg:grid-cols-2 lg:px-8">
+
+      <!-- Hero Text Column -->
+      <div>
+        <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#7B8087] dark:text-[#8E939A]">
+          Marketing websites specialist
+        </p>
+        <h1 class="mt-4 text-[42px] font-extrabold leading-[1.08] tracking-[-0.04em] sm:text-[54px] lg:text-[62px]">
+          Websites that make products<span class="text-acid"> clear.</span>
+        </h1>
+        <p class="mt-5 max-w-[480px] text-[14px] leading-6 text-[#6F747B] sm:text-[15px] dark:text-[#B7BBC1]">
+          I build marketing websites for SaaS startups, combining thoughtful structure, product-focused UI and
+          responsive frontend development.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a href="#work"
+            class="inline-flex w-full items-center justify-center gap-3 rounded-lg bg-acid px-5 py-3.5 text-[13px] font-bold text-[#111] transition hover:-translate-y-0.5 hover:bg-[#FFE04D] sm:w-auto">
+            View my work <span>→</span>
+          </a>
+          <a href="mailto:hello@example.com"
+            class="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-black/10 bg-black/[0.03] px-5 py-3.5 text-[13px] font-semibold text-[#555A61] transition hover:text-black sm:w-auto dark:border-white/10 dark:bg-white/[0.03] dark:text-[#DADCE0] dark:hover:text-white">
+            Let's talk
+          </a>
+        </div>
+
+        <!-- Skills Tags -->
+        <div class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] font-medium text-[#6F747B] dark:text-[#AEB1B6]">
+          <span>Strategy</span><span class="h-[3px] w-[3px] rounded-full bg-current opacity-60"></span>
+          <span>UI Design</span><span class="h-[3px] w-[3px] rounded-full bg-current opacity-60"></span>
+          <span>Frontend Development</span>
+        </div>
+      </div>
+
+      <!-- Hero Portrait Composition -->
+      <div class="relative isolate min-h-[370px] sm:min-h-[440px] lg:min-h-[500px]">
+        <div
+          class="pointer-events-none absolute left-1/2 top-[44%] z-0 h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,208,0,.24),rgba(255,208,0,.08)_34%,transparent_70%)] blur-2xl sm:h-[420px] sm:w-[420px] dark:bg-[radial-gradient(circle,rgba(255,208,0,.16),rgba(255,208,0,.05)_34%,transparent_70%)]">
+        </div>
+
+        <div class="absolute inset-x-0 bottom-0 z-10 mx-auto w-full max-w-[420px] grayscale">
+          <img src="assets/andy_portrait_ref.png" alt="Andy, frontend developer"
+            class="portrait-mask h-[365px] w-full object-cover object-top sm:h-[445px] lg:h-[490px]">
+        </div>
+
+        <div
+          class="absolute right-[4%] top-[18%] z-10 rotate-[4deg] font-handwritten text-[28px] text-[#9B7B00] sm:right-[2%] sm:text-[32px] dark:text-acid">
+          Hi, I'm Andy
+          <span class="ml-4 block -rotate-12 font-serif text-[42px] leading-none">↙</span>
+        </div>
+        <p
+          class="absolute bottom-10 right-0 z-20 hidden max-w-[165px] text-right text-[13px] font-medium leading-5 text-[#6F747B] lg:block dark:text-[#AEB1B6]">
+          I help founders bring their ideas to life on the web.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Work / Selected Work -->
+  <section id="work" class="border-t border-black/[0.06] py-20 dark:border-white/[0.07] md:py-24">
+    <div class="mx-auto max-w-[1180px] px-5 sm:px-7 lg:px-8">
+
+      <!-- Section Header -->
+      <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#7B8087] dark:text-[#8E939A]">
+            Selected work
+          </p>
+          <h2 class="mt-2 text-[32px] font-extrabold tracking-[-0.04em] sm:text-[38px]">
+            Featured project
+          </h2>
+        </div>
+        <p class="text-[12px] text-[#7B8087]">
+          Concept project · <strong class="font-semibold text-[#17191C] dark:text-white">SaaS marketing website</strong>
+        </p>
+      </div>
+
+      <!-- Main Featured Card: TeamFlow -->
+      <article
+        class="group relative overflow-hidden rounded-2xl border border-black/[0.09] bg-white/65 shadow-soft backdrop-blur-xl transition hover:-translate-y-1 hover:border-black/20 dark:border-white/[0.10] dark:bg-panel dark:shadow-darksoft dark:hover:border-white/20">
+        <div class="grid grid-cols-1 lg:grid-cols-[.92fr_1.08fr]">
+
+          <!-- Info Column -->
+          <div class="flex flex-col justify-center px-6 py-8 sm:px-9 sm:py-10 lg:px-10">
+            <h3 class="text-[32px] font-extrabold tracking-[-0.045em] text-[#17191C] dark:text-white">TeamFlow</h3>
+            <p class="mt-1 text-[13px] font-medium text-[#494E54] dark:text-[#D4D5D7]">A decision-context layer for
+              modern teams.</p>
+            <p class="mt-4 max-w-[430px] text-[13px] leading-6 text-[#6F747B] dark:text-[#B7BBC1]">
+              A marketing website for a product concept that helps teams preserve the reasoning, evidence and context
+              behind important decisions.
+            </p>
+
+            <!-- Tags -->
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span
+                class="rounded-md border border-black/[0.09] bg-white/55 px-2.5 py-1.5 text-[11px] font-medium text-[#6F747B] dark:border-white/[0.10] dark:bg-white/[0.03] dark:text-[#AEB1B6]">Strategy</span>
+              <span
+                class="rounded-md border border-black/[0.09] bg-white/55 px-2.5 py-1.5 text-[11px] font-medium text-[#6F747B] dark:border-white/[0.10] dark:bg-white/[0.03] dark:text-[#AEB1B6]">UI
+                Design</span>
+              <span
+                class="rounded-md border border-black/[0.09] bg-white/55 px-2.5 py-1.5 text-[11px] font-medium text-[#6F747B] dark:border-white/[0.10] dark:bg-white/[0.03] dark:text-[#AEB1B6]">Frontend
+                Development</span>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
+              <a href="teamflow-case-study.html"
+                class="inline-flex w-full items-center justify-center gap-2.5 whitespace-nowrap rounded-lg bg-acid px-5 py-3 text-[12px] font-bold text-[#111] transition hover:bg-[#FFE04D] sm:w-auto after:absolute after:inset-0 after:z-10">
+                View case study <span>→</span>
+              </a>
+              <a href="https://andyjoethedev.github.io/teamflow/" target="_blank" rel="noreferrer"
+                class="relative z-20 inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-black/10 bg-black/[0.03] px-4 py-3 text-[12px] font-semibold text-[#555A61] transition hover:text-black sm:w-auto dark:border-white/10 dark:bg-white/[0.03] dark:text-[#DADCE0] dark:hover:text-white">
+                View live site <span>↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Image Preview Column -->
+          <div
+            class="relative w-full overflow-hidden bg-transparent h-auto lg:min-h-[360px] max-h-[346px] lg:pt-6">
+            <img src="assets/teamflow_card.png" alt="TeamFlow website preview" class="h-full w-full object-contain object-top">
+          </div>
+
+        </div>
+      </article>
+
+      <!-- More Projects Section Header -->
+      <h3 class="mb-6 mt-16 text-[28px] font-extrabold tracking-[-0.035em] text-[#17191C] dark:text-white">
+        More projects
+      </h3>
+
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+
+        <!-- Nexcent -->
+        <article
+          class="group relative overflow-hidden rounded-2xl border border-black/[0.08] bg-white/65 shadow-soft backdrop-blur-lg transition hover:-translate-y-1 hover:border-black/20 dark:border-white/[0.09] dark:bg-panel dark:hover:border-white/20">
+          <div class="h-[220px] overflow-hidden bg-paperPanel dark:bg-[#0A0C0E]">
+            <img src="assets/project_nexcent_ref.png" alt="Nexcent project preview"
+              class="h-full w-full object-cover object-top">
+          </div>
+          <div class="p-6 sm:p-7">
+            <h4 class="text-[24px] font-extrabold text-[#17191C] dark:text-white">Nexcent</h4>
+            <p class="mt-1 text-[13px] font-medium text-[#494E54] dark:text-[#D4D5D7]">AI productivity tool</p>
+            <p class="mt-3 text-[13px] leading-6 text-[#6F747B] dark:text-[#B7BBC1]">
+              A clean, conversion-focused landing page and positioning strategy designed for an AI-powered workspace
+              automation tool.
+            </p>
+
+            <div class="mt-6 flex flex-wrap items-center gap-3">
+              <a href="nexcent-case-study.html"
+                class="inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-lg bg-acid px-4 py-2.5 text-[12px] font-bold text-[#111] transition hover:bg-[#FFE04D] after:absolute after:inset-0 after:z-10">
+                View case study <span>→</span>
+              </a>
+              <a href="#" target="_blank" rel="noreferrer"
+                class="relative z-20 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-black/10 bg-black/[0.03] px-3.5 py-2.5 text-[12px] font-semibold text-[#555A61] transition hover:text-black dark:border-white/10 dark:bg-white/[0.03] dark:text-[#DADCE0] dark:hover:text-white">
+                View live site <span>↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Solara -->
+        <article
+          class="group relative overflow-hidden rounded-2xl border border-black/[0.08] bg-white/65 shadow-soft backdrop-blur-lg transition hover:-translate-y-1 hover:border-black/20 dark:border-white/[0.09] dark:bg-panel dark:hover:border-white/20">
+          <div class="h-[220px] overflow-hidden bg-paperPanel dark:bg-[#0A0C0E]">
+            <img src="assets/project_solara_ref.png" alt="Solara project preview"
+              class="h-full w-full object-cover object-top">
+          </div>
+          <div class="p-6 sm:p-7">
+            <h4 class="text-[24px] font-extrabold text-[#17191C] dark:text-white">Solara</h4>
+            <p class="mt-1 text-[13px] font-medium text-[#494E54] dark:text-[#D4D5D7]">Web3 SaaS platform</p>
+            <p class="mt-3 text-[13px] leading-6 text-[#6F747B] dark:text-[#B7BBC1]">
+              A modern marketing website and visual design system built for a high-performance Web3 infrastructure and
+              developer platform.
+            </p>
+
+            <div class="mt-6 flex flex-wrap items-center gap-3">
+              <a href="solara-case-study.html"
+                class="inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-lg bg-acid px-4 py-2.5 text-[12px] font-bold text-[#111] transition hover:bg-[#FFE04D] after:absolute after:inset-0 after:z-10">
+                View case study <span>→</span>
+              </a>
+              <a href="#" target="_blank" rel="noreferrer"
+                class="relative z-20 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-black/10 bg-black/[0.03] px-3.5 py-2.5 text-[12px] font-semibold text-[#555A61] transition hover:text-black dark:border-white/10 dark:bg-white/[0.03] dark:text-[#DADCE0] dark:hover:text-white">
+                View live site <span>↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section id="approach" aria-labelledby="approach-heading"
+    class="border-t border-black/[0.06] py-20 dark:border-white/[0.07] md:py-24">
+    <div class="mx-auto max-w-[1180px] px-5 sm:px-7 lg:px-8">
+      <div class="max-w-5xl">
+        <p class="mb-7 text-[11px] font-bold uppercase tracking-[0.2em] text-[#7B8087] dark:text-[#8E939A]">
+          My approach
+        </p>
+
+        <h2 id="approach-heading"
+          class="max-w-[640px] text-[32px] font-extrabold leading-[1.18] tracking-[-0.04em] text-[#17191C] sm:text-[38px] lg:text-[42px] dark:text-white">
+          A marketing website has to explain the product before it can sell it.
+        </h2>
+
+        <p
+          class="mt-6 max-w-[640px] text-[15px] leading-7 text-[#6F747B] sm:text-base sm:leading-8 dark:text-[#B7BBC1]">
+          I think about what the visitor needs to understand, what order they need to understand it in, and how the
+          interface can help communicate it. Then I design and build the experience around that.
+        </p>
+      </div>
+
+      <!-- 4-Step Process Grid -->
+      <ol
+        class="mt-14 grid grid-cols-1 gap-y-10 sm:mt-16 sm:grid-cols-2 sm:gap-x-10 lg:mt-20 lg:grid-cols-4 lg:gap-x-8">
+
+        <!-- Step 01 -->
+        <li class="group relative border-t border-black/10 pt-7 dark:border-white/10 lg:border-0 lg:pt-0">
+          <div class="mb-5 flex items-center gap-5">
+            <span class="text-base font-medium tabular-nums text-[#9B7B00] dark:text-acid">01</span>
+            <div class="hidden flex-1 items-center lg:flex">
+              <div class="h-[1.5px] w-full bg-black/20 dark:bg-white/20"></div>
+              <svg class="h-3.5 w-3.5 -ml-1 shrink-0 text-black/20 dark:text-white/20" viewBox="0 0 12 12" fill="none"
+                aria-hidden="true">
+                <path d="M3 1.5L7.5 6L3 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-2xl font-medium tracking-[-0.025em] text-[#17191C] dark:text-white">Understand</h3>
+          <p class="mt-3 max-w-[15rem] text-[0.95rem] leading-7 text-[#6F747B] dark:text-[#8E939A]">
+            Clarify the product,<br class="hidden xl:block"> audience and goals.
+          </p>
+        </li>
+
+        <!-- Step 02 -->
+        <li class="group relative border-t border-black/10 pt-7 dark:border-white/10 lg:border-0 lg:pt-0">
+          <div class="mb-5 flex items-center gap-5">
+            <span class="text-base font-medium tabular-nums text-[#9B7B00] dark:text-acid">02</span>
+            <div class="hidden flex-1 items-center lg:flex">
+              <div class="h-[1.5px] w-full bg-black/20 dark:bg-white/20"></div>
+              <svg class="h-3.5 w-3.5 -ml-1 shrink-0 text-black/20 dark:text-white/20" viewBox="0 0 12 12" fill="none"
+                aria-hidden="true">
+                <path d="M3 1.5L7.5 6L3 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-2xl font-medium tracking-[-0.025em] text-[#17191C] dark:text-white">Structure</h3>
+          <p class="mt-3 max-w-[15rem] text-[0.95rem] leading-7 text-[#6F747B] dark:text-[#8E939A]">
+            Shape the narrative<br class="hidden xl:block"> and page flow.
+          </p>
+        </li>
+
+        <!-- Step 03 -->
+        <li class="group relative border-t border-black/10 pt-7 dark:border-white/10 lg:border-0 lg:pt-0">
+          <div class="mb-5 flex items-center gap-5">
+            <span class="text-base font-medium tabular-nums text-[#9B7B00] dark:text-acid">03</span>
+            <div class="hidden flex-1 items-center lg:flex">
+              <div class="h-[1.5px] w-full bg-black/20 dark:bg-white/20"></div>
+              <svg class="h-3.5 w-3.5 -ml-1 shrink-0 text-black/20 dark:text-white/20" viewBox="0 0 12 12" fill="none"
+                aria-hidden="true">
+                <path d="M3 1.5L7.5 6L3 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-2xl font-medium tracking-[-0.025em] text-[#17191C] dark:text-white">Design</h3>
+          <p class="mt-3 max-w-[15rem] text-[0.95rem] leading-7 text-[#6F747B] dark:text-[#8E939A]">
+            Create a clean,<br class="hidden xl:block"> effective interface.
+          </p>
+        </li>
+
+        <!-- Step 04 -->
+        <li class="group relative border-t border-black/10 pt-7 dark:border-white/10 lg:border-0 lg:pt-0">
+          <div class="mb-5 flex items-center gap-5">
+            <span class="text-base font-medium tabular-nums text-[#9B7B00] dark:text-acid">04</span>
+          </div>
+          <h3 class="text-2xl font-medium tracking-[-0.025em] text-[#17191C] dark:text-white">Build</h3>
+          <p class="mt-3 max-w-[17rem] text-[0.95rem] leading-7 text-[#6F747B] dark:text-[#8E939A]">
+            Turn it into a responsive,<br class="hidden xl:block"> production-ready site.
+          </p>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="border-t border-black/[0.06] py-20 dark:border-white/[0.07] md:py-24">
+    <div class="mx-auto max-w-[1180px] px-5 sm:px-7 lg:px-8">
+      <div class="mb-10">
+        <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#7B8087] dark:text-[#8E939A]">
+          Client feedback
+        </p>
+        <h2 class="mt-2 text-[32px] font-extrabold tracking-[-0.04em] sm:text-[38px]">
+          What founders say
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+
+        <!-- Testimonial 1 -->
+        <div
+          class="glass-light relative flex flex-col justify-between rounded-2xl border border-black/[0.08] p-7 shadow-soft dark:border-white/[0.09] dark:shadow-darksoft">
+          <div
+            class="pointer-events-none absolute -right-6 -top-6 h-32 w-32 rounded-full bg-[radial-gradient(circle,rgba(255,208,0,.20),transparent_68%)] blur-2xl dark:bg-[radial-gradient(circle,rgba(255,208,0,.12),transparent_68%)]">
+          </div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-1 text-[#D9A300] dark:text-acid" aria-label="5 out of 5 stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <blockquote
+              class="mt-5 text-[15px] font-medium leading-7 tracking-[-0.01em] text-[#17191C] dark:text-[#E2E4E8]">
+              “Andy was thoughtful about the page before touching the code. He helped us simplify what we were trying
+              to say, then turned it into a site that felt clear, polished and genuinely ours.”
+            </blockquote>
+          </div>
+          <div
+            class="relative z-10 mt-7 flex items-center gap-3.5 border-t border-black/[0.06] pt-5 dark:border-white/[0.07]">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+              alt="Sarah Jenkins"
+              class="h-10 w-10 rounded-full border border-black/10 object-cover dark:border-white/10">
+            <div>
+              <p class="text-[12px] font-bold text-[#17191C] dark:text-white">Sarah Jenkins</p>
+              <p class="text-[11px] text-[#7B8087] dark:text-[#8E939A]">Co-Founder, RelateHQ</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div
+          class="glass-light relative flex flex-col justify-between rounded-2xl border border-black/[0.08] p-7 shadow-soft dark:border-white/[0.09] dark:shadow-darksoft">
+          <div
+            class="pointer-events-none absolute -right-6 -top-6 h-32 w-32 rounded-full bg-[radial-gradient(circle,rgba(255,208,0,.20),transparent_68%)] blur-2xl dark:bg-[radial-gradient(circle,rgba(255,208,0,.12),transparent_68%)]">
+          </div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-1 text-[#D9A300] dark:text-acid" aria-label="5 out of 5 stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <blockquote
+              class="mt-5 text-[15px] font-medium leading-7 tracking-[-0.01em] text-[#17191C] dark:text-[#E2E4E8]">
+              “Most developers just build what you give them. Andy questioned our structure, caught logical gaps in
+              our messaging, and delivered a high-performing landing page ahead of launch.”
+            </blockquote>
+          </div>
+          <div
+            class="relative z-10 mt-7 flex items-center gap-3.5 border-t border-black/[0.06] pt-5 dark:border-white/[0.07]">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80"
+              alt="Marcus Vance"
+              class="h-10 w-10 rounded-full border border-black/10 object-cover dark:border-white/10">
+            <div>
+              <p class="text-[12px] font-bold text-[#17191C] dark:text-white">Marcus Vance</p>
+              <p class="text-[11px] text-[#7B8087] dark:text-[#8E939A]">CTO, MetricFlow</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div
+          class="glass-light relative flex flex-col justify-between rounded-2xl border border-black/[0.08] p-7 shadow-soft dark:border-white/[0.09] dark:shadow-darksoft">
+          <div
+            class="pointer-events-none absolute -right-6 -top-6 h-32 w-32 rounded-full bg-[radial-gradient(circle,rgba(255,208,0,.20),transparent_68%)] blur-2xl dark:bg-[radial-gradient(circle,rgba(255,208,0,.12),transparent_68%)]">
+          </div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-1 text-[#D9A300] dark:text-acid" aria-label="5 out of 5 stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <blockquote
+              class="mt-5 text-[15px] font-medium leading-7 tracking-[-0.01em] text-[#17191C] dark:text-[#E2E4E8]">
+              “The frontend precision is unmatched. The animations feel intentional, dark mode works seamlessly, and
+              our conversion rate increased noticeably after deployment.”
+            </blockquote>
+          </div>
+          <div
+            class="relative z-10 mt-7 flex items-center gap-3.5 border-t border-black/[0.06] pt-5 dark:border-white/[0.07]">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80"
+              alt="Elena Rostova"
+              class="h-10 w-10 rounded-full border border-black/10 object-cover dark:border-white/10">
+            <div>
+              <p class="text-[12px] font-bold text-[#17191C] dark:text-white">Elena Rostova</p>
+              <p class="text-[11px] text-[#7B8087] dark:text-[#8E939A]">Product Lead, CloudPulse</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="border-t border-black/[0.06] py-20 dark:border-white/[0.07] md:py-24">
+    <div
+      class="mx-auto grid max-w-[1180px] grid-cols-1 gap-10 px-5 sm:px-7 lg:grid-cols-[1fr_260px_1.2fr] lg:items-start lg:gap-12 lg:px-8">
+
+      <!-- Left: Heading -->
+      <div>
+        <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#7B8087] dark:text-[#8E939A]">About</p>
+        <h2 class="mt-3 max-w-[360px] text-[32px] font-extrabold leading-[1.15] tracking-[-0.04em] sm:text-[38px]">
+          A developer who cares about the bigger picture.
+        </h2>
+      </div>
+
+      <!-- Center: Portrait -->
+      <div
+        class="overflow-hidden rounded-2xl border border-black/[0.08] bg-white/50 shadow-soft dark:border-white/[0.09] dark:bg-[#141619] dark:shadow-none">
+        <img src="assets/about_portrait_ref.png" alt="Andy" class="h-[260px] w-full object-cover grayscale">
+      </div>
+
+      <!-- Right: Bio Paragraphs & Button -->
+      <div class="flex flex-col justify-between">
+        <div class="space-y-4 text-[0.95rem] leading-6 text-[#6F747B] dark:text-[#B7BBC1]">
+          <p>I'm Andy, a frontend developer focused on building marketing websites for SaaS startups and founders.</p>
+          <p>I enjoy working on projects where design, product and development come together to create something
+            useful, clear and a bit different.</p>
+          <p>When I'm not coding, I'm usually exploring new tools, studying great product websites, or thinking about
+            how complex ideas can be explained more simply.</p>
+        </div>
+
+        <div class="mt-6">
+          <a href="mailto:hello@example.com"
+            class="inline-flex items-center gap-2 rounded-lg border border-black/15 px-4 py-2.5 text-[12px] font-semibold transition hover:border-black/35 dark:border-white/20 dark:hover:border-white/40">
+            Let's talk <span>→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA Stage Selector -->
+  <section class="border-t border-black/[0.06] py-20 dark:border-white/[0.07] md:py-24">
+    <div class="mx-auto max-w-[1180px] px-5 sm:px-7 lg:px-8">
+      <div
+        class="relative overflow-hidden rounded-3xl border border-black/[0.08] bg-paperPanel p-8 sm:p-12 lg:p-16 dark:border-white/[0.09] dark:bg-[#101214]">
+
+        <!-- Ambient Glow -->
+        <div
+          class="pointer-events-none absolute -bottom-20 -right-20 h-[350px] w-[350px] rounded-full bg-[radial-gradient(circle,rgba(255,208,0,.30),transparent_70%)] blur-3xl dark:bg-[radial-gradient(circle,rgba(255,208,0,.15),transparent_70%)]">
+        </div>
+
+        <!-- Header & Availability Badge -->
+        <div class="relative z-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+          <div>
+            <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#7B8087] dark:text-[#8E939A]">Next Steps
+            </p>
+            <h2 class="mt-2 text-[32px] font-extrabold tracking-[-0.04em] sm:text-[38px]">
+              Where are you with your website?
+            </h2>
+          </div>
+          <div
+            class="inline-flex items-center gap-2.5 rounded-full border border-black/10 bg-white/80 px-4 py-1.5 text-[12px] font-semibold text-[#17191C] shadow-sm dark:border-white/10 dark:bg-white/[0.06] dark:text-white">
+            <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Available for new projects</span>
+          </div>
+        </div>
+
+        <!-- 3 Stage Cards -->
+        <div class="relative z-10 mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
+
+          <!-- Card 1: Starting Fresh -->
+          <div
+            class="flex flex-col justify-between rounded-2xl border border-black/10 bg-white/80 p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-black/30 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-white/20">
+            <div>
+              <span class="text-[12px] font-bold text-[#9B7B00] dark:text-acid">01</span>
+              <h3 class="mt-2 text-[17px] font-bold text-[#17191C] dark:text-white">Starting from scratch</h3>
+              <p class="mt-2 text-[13px] leading-6 text-[#6F747B] dark:text-[#8E939A]">
+                You have a new SaaS product and need clear positioning, design, and production code.
+              </p>
+            </div>
+            <div class="mt-8">
+              <a href="mailto:hello@example.com?subject=New%20SaaS%20Launch"
+                class="inline-flex w-full items-center justify-between rounded-xl bg-[#17191C] px-5 py-3.5 text-[13px] font-bold text-white transition hover:bg-black dark:bg-white dark:text-[#111] dark:hover:bg-gray-200">
+                <span>Let’s build it</span>
+                <span class="text-[16px]">→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: Redesign -->
+          <div
+            class="flex flex-col justify-between rounded-2xl border border-black/10 bg-white/80 p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-black/30 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-white/20">
+            <div>
+              <span class="text-[12px] font-bold text-[#9B7B00] dark:text-acid">02</span>
+              <h3 class="mt-2 text-[17px] font-bold text-[#17191C] dark:text-white">Redesigning your site</h3>
+              <p class="mt-2 text-[13px] leading-6 text-[#6F747B] dark:text-[#8E939A]">
+                Your product evolved, but your current site feels messy and isn't converting.
+              </p>
+            </div>
+            <div class="mt-8">
+              <a href="mailto:hello@example.com?subject=Redesign%20Project"
+                class="inline-flex w-full items-center justify-between rounded-xl bg-[#17191C] px-5 py-3.5 text-[13px] font-bold text-white transition hover:bg-black dark:bg-white dark:text-[#111] dark:hover:bg-gray-200">
+                <span>Let's improve it</span>
+                <span class="text-[16px]">→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: Feedback / Advice -->
+          <div
+            class="flex flex-col justify-between rounded-2xl border border-black/10 bg-white/80 p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-black/30 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-white/20">
+            <div>
+              <span class="text-[12px] font-bold text-[#9B7B00] dark:text-acid">03</span>
+              <h3 class="mt-2 text-[17px] font-bold text-[#17191C] dark:text-white">Just need feedback</h3>
+              <p class="mt-2 text-[13px] leading-6 text-[#6F747B] dark:text-[#8E939A]">
+                Unsure where your narrative is breaking down? I’ll review your current page.
+              </p>
+            </div>
+            <div class="mt-8">
+              <a href="mailto:hello@example.com?subject=Page%20Review"
+                class="inline-flex w-full items-center justify-between rounded-xl bg-[#17191C] px-5 py-3.5 text-[13px] font-bold text-white transition hover:bg-black dark:bg-white dark:text-[#111] dark:hover:bg-gray-200">
+                <span>Request review</span>
+                <span class="text-[16px]">→</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-black/[0.06] py-12 dark:border-white/[0.07]">
+    <div
+      class="mx-auto flex max-w-[1180px] flex-col gap-8 px-5 sm:flex-row sm:items-center sm:justify-between sm:px-7 lg:px-8">
+
+      <!-- Left Column: Logo & Copyright -->
+      <div class="flex flex-col gap-1.5">
+        <a href="#" class="text-[18px] font-extrabold tracking-[-0.04em] text-[#17191C] dark:text-white">
+          aj.build/<span class="text-[#9B7B00] dark:text-acid">&gt;</span>
+        </a>
+        <p class="text-[12px] text-[#7B8087] dark:text-[#8E939A]">
+          © 2026 Andy Joe. All rights reserved.
+        </p>
+      </div>
+
+      <!-- Center Navigation -->
+      <nav class="flex flex-wrap items-center gap-8 text-[13px] font-medium text-[#494E54] dark:text-[#D4D5D7]">
+        <a href="#work" class="transition hover:text-black dark:hover:text-white">Work</a>
+        <a href="#approach" class="transition hover:text-black dark:hover:text-white">Approach</a>
+        <a href="#about" class="transition hover:text-black dark:hover:text-white">About</a>
+      </nav>
+
+      <!-- Right Column: Social Icons -->
+      <div class="flex items-center gap-5 text-[#6F747B] dark:text-[#A2A6AC]">
+
+        <!-- X (Twitter) Icon -->
+        <a href="https://x.com/AndrewEffi5358" target="_blank" rel="noreferrer" aria-label="X (Twitter)"
+          class="transition hover:text-black dark:hover:text-white">
+          <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+        </a>
+
+        <!-- LinkedIn Icon -->
+        <a href="#" aria-label="LinkedIn" class="transition hover:text-black dark:hover:text-white">
+          <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+          </svg>
+        </a>
+
+        <!-- GitHub Icon -->
+        <a href="#" aria-label="GitHub" class="transition hover:text-black dark:hover:text-white">
+          <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+          </svg>
+        </a>
+
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Interactive JavaScript Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Theme Toggle Elements
+      const themeToggle = document.getElementById('themeToggle');
+      const sunIcon = document.getElementById('sunIcon');
+      const moonIcon = document.getElementById('moonIcon');
+
+      function updateIcons() {
+        const isDark = document.documentElement.classList.contains('dark');
+        if (isDark) {
+          sunIcon.classList.remove('hidden');
+          moonIcon.classList.add('hidden');
+        } else {
+          sunIcon.classList.add('hidden');
+          moonIcon.classList.remove('hidden');
+        }
+      }
+
+      // Initial icon sync
+      updateIcons();
+
+      // Theme toggle click handler
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.toggle('dark');
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+          updateIcons();
+        });
+      }
+
+      // Mobile Menu Elements
+      const menuButton = document.getElementById('menuButton');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+
+      if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close menu when clicking a link
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+          });
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
